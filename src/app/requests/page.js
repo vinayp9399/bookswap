@@ -33,20 +33,29 @@ useEffect(() => { fetchRequests() }, [])
 
 return (
 <div style={{margin:"20px"}}>
+<h2>Requests from other users</h2>
+    <div className="container">{requests.map(r => (
+        <>{r.status === 'pending' && r.requesterName !== currentUser && (<><div key={r._id} style={{ border: '1px solid #ddd', marginBottom: 8, padding: 8 }}>
+        <p>Book: {r.bookTitle}</p>
+        <p>Status: <button style={{backgroundColor: r.status === 'accepted' ? '#4CAF50' : '#bfcc03ff',}}>{r.status}</button></p>
+        <p>Requester: {r.requesterName}</p>
+            
+            <div style={{display:"flex",gap:"10px"}}>
+            <button onClick={() => handleAction(r._id, 'accept')}>Accept</button>
+            <button onClick={() => handleAction(r._id, 'decline')}>Decline</button>
+            </div>
+            
+        </div></>)}</>
+    ))}</div>
 <h2>My Requests</h2>
-<div className="container">{requests.map(r => (
-<div key={r._id} style={{ border: '1px solid #ddd', marginBottom: 8, padding: 8 }}>
-<p>Book: {r.bookTitle}</p>
-<p>Status: {r.status}</p>
-<p>Requester: {r.requesterName}</p>
-{r.status === 'pending' && r.requesterName !== currentUser && (
-<div style={{display:"flex",gap:"10px"}}>
-<button onClick={() => handleAction(r._id, 'accept')}>Accept</button>
-<button onClick={() => handleAction(r._id, 'decline')}>Decline</button>
-</div>
-)}
-</div>
-))}</div>
+    <div className="container">{requests.map(r => (
+        <>{r.requesterName == currentUser && (<><div key={r._id} style={{ border: '1px solid #ddd', marginBottom: 8, padding: 8 }}>
+        <p>Book: {r.bookTitle}</p>
+        <p>Status: <button style={{backgroundColor: r.status === 'accepted' ? '#4CAF50' : '#bfcc03ff',}}>{r.status}</button></p>
+        <p>Requester: {r.requesterName}</p>
+            
+        </div></>)}</>
+    ))}</div>
 </div>
 )
 }
