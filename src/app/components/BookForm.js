@@ -6,6 +6,7 @@ export default function BookForm({ onSubmit }) {
 const [title, setTitle] = useState('')
 const [author, setAuthor] = useState('')
 const [condition, setCondition] = useState('')
+
 const [image, setImage] = useState('')
 
 
