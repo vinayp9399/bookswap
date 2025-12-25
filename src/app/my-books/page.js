@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import BookCard from '../components/BookCard'
 import axios from 'axios'
+import Navbar from '../components/Navbar'
 
 
 export default function MyBooksPage() {
@@ -30,9 +31,11 @@ useEffect(() => { fetchBooks() }, [])
 
 
 return (
+<>
+<Navbar/>
 <div style={{margin:"20px"}}>
 <h2>My Books</h2>
 <div className="container">{books.map(b => <BookCard key={b._id} book={b} onDelete={handleDelete} />)}</div>
-</div>
+</div></>
 )
 }

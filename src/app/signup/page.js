@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 import axios from 'axios'
+import Navbar from '../components/Navbar';
 
 
 export default function SignupPage() {
@@ -22,6 +23,8 @@ axios.post('/api/auth/signup', { name, email, password }).then(()=>{
 
 
 return (
+<>
+<Navbar/>
 <div style={{textAlign:"center"}}><h2>Sign Up</h2>
 <div style={{textAlign:"center"}}><form style={{margin:"auto", width:"500px"}} onSubmit={handleSubmit}>
 <input value={name} onChange={e => setName(e.target.value)} placeholder="Name" required />
@@ -29,5 +32,6 @@ return (
 <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Password" required />
 <button type="submit">Signup</button>
 </form></div></div>
+</>
 )
 }

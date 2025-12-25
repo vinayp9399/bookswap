@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 import axios from 'axios'
+import Navbar from '../components/Navbar';
 
 
 export default function LoginPage() {
@@ -21,11 +22,15 @@ axios.post('/api/auth/login', { email, password }).then((res)=>{
 
 
 return (
+
+<>
+<Navbar/>
 <div style={{textAlign:"center"}}><h2>Login</h2>
 <div style={{textAlign:"center"}}><form style={{margin:"auto", width:"500px"}} onSubmit={handleSubmit}>
 <input value={email} onChange={e => setEmail(e.target.value)} placeholder="Email" required />
 <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Password" required />
 <button type="submit">Login</button>
 </form></div></div>
+</>
 )
 }

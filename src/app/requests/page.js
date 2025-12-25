@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import Navbar from '../components/Navbar';
 
 
 export default function RequestsPage() {
@@ -32,6 +33,8 @@ useEffect(() => { fetchRequests() }, [])
 
 
 return (
+<>
+<Navbar/>
 <div style={{margin:"20px"}}>
 <h2>Requests from other users</h2>
     <div className="container">{requests.map(r => (
@@ -70,5 +73,6 @@ return (
         </div></>)}</>
     ))}</div>
 </div>
+</>
 )
 }

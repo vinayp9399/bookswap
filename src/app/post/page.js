@@ -1,6 +1,7 @@
 'use client'
 import BookForm from '../components/BookForm'
 import axios from 'axios'
+import Navbar from '../components/Navbar'
 
 
 export default function PostPage() {
@@ -18,6 +19,7 @@ axios.post('/api/books', body).then((res)=>{
 
 return (
 <div>
+<Navbar/>
 <h2 style={{textAlign:"center"}}>Post a Book</h2>
 <BookForm onSubmit={handlePost} />
 </div>
