@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react'
+import axios from 'axios'
 
 
 export default function SignupPage() {
@@ -10,18 +11,13 @@ const [password, setPassword] = useState('')
 
 async function handleSubmit(e) {
 e.preventDefault()
-const res = await fetch('/api/auth/signup', {
-method: 'POST',
-headers: { 'Content-Type': 'application/json' },
-body: JSON.stringify({ name, email, password })
+
+axios.post('/api/auth/signup', { name, email, password }).then(()=>{
+  window.location.href = '/login'  
+}).catch(()=>{
+   alert('Signup failed') 
 })
-if (res.ok) {
-const data = await res.json()
-localStorage.setItem('user', JSON.stringify(data))
-window.location.href = '/'
-} else {
-alert('Signup failed')
-}
+
 }
 
 

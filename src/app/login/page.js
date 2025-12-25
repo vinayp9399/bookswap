@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react'
+import axios from 'axios'
 
 
 export default function LoginPage() {
@@ -9,18 +10,13 @@ const [password, setPassword] = useState('')
 
 async function handleSubmit(e) {
 e.preventDefault()
-const res = await fetch('/api/auth/login', {
-method: 'POST',
-headers: { 'Content-Type': 'application/json' },
-body: JSON.stringify({ email, password })
+
+axios.post('/api/auth/login', { email, password }).then((res)=>{
+   localStorage.setItem('user', JSON.stringify(res.data)) 
+   window.location.href = '/'
+}).catch((err)=>{
+   alert('Login failed')
 })
-if (res.ok) {
-const data = await res.json()
-localStorage.setItem('user', JSON.stringify(data))
-window.location.href = '/'
-} else {
-alert('Login failed')
-}
 }
 
 

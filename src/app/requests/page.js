@@ -1,5 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react'
+import axios from 'axios'
 
 
 export default function RequestsPage() {
@@ -11,20 +12,19 @@ async function fetchRequests() {
 const user = JSON.parse(localStorage.getItem('user'))
 setcurrentUser(user.name);
 console.log(currentUser);
-const res = await fetch('/api/requests?userId=' + user.id)
-const data = await res.json()
-setRequests(data)
+
+axios.get('/api/requests?userId='+ user.id).then((res)=>{
+   setRequests(res.data)
+})
 }
 
 
 async function handleAction(id, action) {
 const user = JSON.parse(localStorage.getItem('user'))
-await fetch('/api/requests/' + id, {
-method: 'PUT',
-headers: { 'Content-Type': 'application/json' },
-body: JSON.stringify({ action, userId: user.id })
+
+axios.put('/api/requests/' + id, { action, userId: user.id }).then(()=>{
+   fetchRequests() 
 })
-fetchRequests()
 }
 
 

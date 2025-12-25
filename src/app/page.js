@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import BookCard from './components/BookCard'
 import Navbar from './components/Navbar'
+import axios from 'axios'
 
 
 export default function Home() {
@@ -9,26 +10,27 @@ const [books, setBooks] = useState([])
 
 
 async function fetchBooks() {
-const res = await fetch('/api/books')
-const data = await res.json()
-setBooks(data)
+
+axios.get('/api/books').then((res)=>{
+    setBooks(res.data) 
+})
 }
 
 
 async function handleRequest(book) {
 const user = JSON.parse(localStorage.getItem('user'))
-await fetch('/api/requests', {
-method: 'POST',
-headers: { 'Content-Type': 'application/json' },
-body: JSON.stringify({
+
+axios.post('/api/requests', {
 bookId: book._id,
 ownerId: book.ownerId,
 requesterId: user.id,
 requesterName: user.name
+}).then((res)=>{
+    alert('Request sent!')
 })
-})
-alert('Request sent!')
 }
+
+
 
 
 useEffect(() => { fetchBooks() }, [])
